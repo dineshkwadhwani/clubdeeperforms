@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     icon: "📚",
     description: "Residential & day coaching for NEET, JEE, MHT-CET aspirants",
     descriptionMarathi: "NEET, JEE, MHT-CET इच्छुकांसाठी निवासी आणि दिवस कोचिंग",
-    active: true,
+    active: false,
   },
   {
     index: 3,
