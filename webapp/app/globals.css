@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
+:root {
+  --forest: #1B3A2D;
+  --forest-light: #2A5A45;
+  --forest-dark: #0F2318;
+  --saffron: #C8892A;
+  --saffron-light: #E8A84A;
+  --parchment: #F7F3EC;
+  --parchment-dark: #EDE7DB;
+  --stone: #6B7565;
+  --charcoal: #1A1A1A;
+  --cream: #FDFAF5;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display { font-family: 'Playfair Display', Georgia, serif; }
+.font-marathi { font-family: 'Tiro Devanagari Marathi', serif; }
+.font-body { font-family: 'Inter', sans-serif; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--parchment); }
+::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--forest); }
+
+/* Hill silhouette animation */
+@keyframes hillDrift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-8px); }
+}
+
+/* Gold shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, var(--saffron), var(--saffron-light), var(--saffron));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Nav active */
+.nav-item-active {
+  background: linear-gradient(90deg, rgba(200,137,42,0.15), rgba(200,137,42,0.05));
+  border-left: 3px solid var(--saffron);
+  color: var(--saffron-light);
+}
+
+.nav-item {
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(200,137,42,0.08);
+  border-left-color: rgba(200,137,42,0.4);
+  color: #d4a55a;
+}
+
+/* Form iframe */
+.form-iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+}
+
+/* Divider gold */
+.divider-gold {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+}
+
+/* Category pill */
+.category-pill {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: rgba(200,137,42,0.12);
+  color: var(--saffron);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
