@@ -42,6 +42,6 @@ next-env.d.ts
 credentials.d.ts
 credentials.json
 token.json
-**/token.json
+/token.json
 forms-creator/token.json
 forms-creator/credentials.json
