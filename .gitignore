@@ -1,0 +1,23 @@
+# Secrets - never commit
+token.json
+**/token.json
+credentials.json
+**/credentials.json
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Next.js build output
+webapp/.next/
+webapp/out/
+
+# Dependencies
+webapp/node_modules/
+node_modules/
+
+# Misc
+*.pem
+.env*
+.vercel
+*.tsbuildinfo

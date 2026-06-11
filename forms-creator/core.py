@@ -21,7 +21,7 @@ TOKEN_FILE  = os.path.join(BASE_DIR, "token.json")
 URLS_FILE   = os.path.join(BASE_DIR, "form_urls.json")
 FOLDER_NAME = "Club Deeper Planning Forms"
 
-# ── Logging ──────────────────────────────────────────────────────────────────
+# ── Logging ───────────────────────────────────────────────────────────────────
 def log(msg, level="INFO"):
     prefix = {"INFO": "  ✦", "OK": "  ✓", "ERR": "  ✗", "HEAD": "══"}
     print(f"{prefix.get(level,'  ')} {msg}", flush=True)
@@ -32,7 +32,7 @@ def banner(title):
     print(f"  {title}", flush=True)
     print("═" * width, flush=True)
 
-# ── Auth ─────────────────────────────────────────────────────────────────────
+# ── Auth ──────────────────────────────────────────────────────────────────────
 def get_credentials():
     creds = None
     if os.path.exists(TOKEN_FILE):
@@ -51,7 +51,7 @@ def get_credentials():
             t.write(creds.to_json())
     return creds
 
-# ── Drive folder ─────────────────────────────────────────────────────────────
+# ── Drive folder ──────────────────────────────────────────────────────────────
 def get_or_create_folder(drive, name):
     q = f"name='{name}' and mimeType='application/vnd.google-apps.folder' and trashed=false"
     res = drive.files().list(q=q, fields="files(id,name)").execute()
@@ -72,9 +72,14 @@ def move_to_folder(drive, file_id, folder_id):
         fields="id,parents"
     ).execute()
 
-# ── Form builder ─────────────────────────────────────────────────────────────
+# ── Count questions in sections ───────────────────────────────────────────────
+def count_questions(sections):
+    return sum(len(s.get("questions", [])) for s in sections)
+
+# ── Form builder with question numbers ───────────────────────────────────────
 def build_requests(sections):
     """
+    Each question title is prefixed with its sequential number: "Q1. ..."
     sections = list of dicts:
       { "title": str, "description": str (optional),
         "questions": [ { "en": str, "mr": str,
@@ -83,6 +88,8 @@ def build_requests(sections):
     """
     requests = []
     idx = 0
+    q_number = 1  # global question counter across all sections
+
     for sec in sections:
         requests.append({
             "createItem": {
@@ -95,8 +102,12 @@ def build_requests(sections):
             }
         })
         idx += 1
+
         for q in sec["questions"]:
-            title = f"{q['en']}  |  {q['mr']}"
+            # Prefix question number to both English and Marathi
+            title = f"Q{q_number}. {q['en']}  |  {q['mr']}"
+            q_number += 1
+
             qtype = q.get("type", "PARAGRAPH")
             if qtype == "TEXT":
                 qi = {"textQuestion": {"paragraph": False}}
@@ -123,30 +134,34 @@ def build_requests(sections):
                 }
             })
             idx += 1
+
     return requests
 
 # ── Create one form ───────────────────────────────────────────────────────────
 def create_form(forms, drive, folder_id, title, description, sections, delay=2.0):
-    log(f"Creating: {title}")
+    q_count = count_questions(sections)
+    # Add question count to form title for easy verification
+    titled = f"{title} ({q_count} Questions)"
+    log(f"Creating: {titled}")
 
     # 1. Create blank form
-    form = forms.forms().create(body={"info": {"title": title, "documentTitle": title}}).execute()
+    form = forms.forms().create(body={"info": {"title": titled, "documentTitle": titled}}).execute()
     form_id = form["formId"]
 
     # 2. Set description
     forms.forms().batchUpdate(formId=form_id, body={"requests": [{
         "updateFormInfo": {"info": {"description": description}, "updateMask": "description"}
     }]}).execute()
-    time.sleep(delay)
+    time.sleep(delay * 3)
 
     # 3. Add questions in batches of 25
     all_reqs = build_requests(sections)
     total = len(all_reqs)
-    batch_size = 25
+    batch_size = 15
     batches = [all_reqs[i:i+batch_size] for i in range(0, total, batch_size)]
 
     for bi, batch in enumerate(batches):
-        log(f"  Batch {bi+1}/{len(batches)}  ({len(batch)} items)...")
+        log(f"  Batch {bi+1}/{len(batches)}  ({len(batch)} items, {q_count} questions total)...")
         for attempt in range(3):
             try:
                 forms.forms().batchUpdate(formId=form_id, body={"requests": batch}).execute()
@@ -166,8 +181,8 @@ def create_form(forms, drive, folder_id, title, description, sections, delay=2.0
 
     view_url = f"https://docs.google.com/forms/d/{form_id}/viewform"
     edit_url = f"https://docs.google.com/forms/d/{form_id}/edit"
-    log(f"  Done → {view_url}", "OK")
-    return {"form_id": form_id, "view_url": view_url, "edit_url": edit_url}
+    log(f"  Done → {view_url}  [{q_count} questions]", "OK")
+    return {"form_id": form_id, "view_url": view_url, "edit_url": edit_url, "q_count": q_count}
 
 # ── URL file merge ────────────────────────────────────────────────────────────
 def load_urls():
@@ -192,7 +207,7 @@ def upsert_form(url_map, index, title, active, form_id, view_url, edit_url):
         "active": active,
     }
 
-# ── Batch runner ─────────────────────────────────────────────────────────────
+# ── Batch runner ──────────────────────────────────────────────────────────────
 def run_batch(batch_name, form_definitions):
     """
     form_definitions = list of:
@@ -202,6 +217,11 @@ def run_batch(batch_name, form_definitions):
     banner(f"Club Deeper Forms v2  —  Batch: {batch_name.upper()}")
     log(f"Forms to create: {len(form_definitions)}")
     log(f"Delay between API calls: 2 seconds (safe mode)")
+
+    # Show question counts upfront
+    for fd in form_definitions:
+        qc = count_questions(fd["sections"])
+        log(f"  [{fd['index']:02d}] {fd['title']} → {qc} questions")
 
     if not os.path.exists(CREDS_FILE):
         log("credentials.json not found — aborting.", "ERR")
@@ -220,7 +240,8 @@ def run_batch(batch_name, form_definitions):
     results = []
 
     for i, fd in enumerate(form_definitions):
-        banner(f"[{i+1}/{len(form_definitions)}]  {fd['title']}")
+        qc = count_questions(fd["sections"])
+        banner(f"[{i+1}/{len(form_definitions)}]  {fd['title']}  ({qc} questions)")
         try:
             info = create_form(
                 forms_svc, drive_svc, folder_id,
@@ -229,16 +250,18 @@ def run_batch(batch_name, form_definitions):
             upsert_form(url_map, fd["index"], fd["title"], fd["active"],
                         info["form_id"], info["view_url"], info["edit_url"])
             save_urls(url_map)
-            results.append({"index": fd["index"], "title": fd["title"], "status": "OK"})
+            results.append({"index": fd["index"], "title": fd["title"],
+                            "status": "OK", "q_count": qc})
         except Exception as e:
             log(f"FAILED: {e}", "ERR")
-            results.append({"index": fd["index"], "title": fd["title"], "status": f"FAILED: {e}"})
+            results.append({"index": fd["index"], "title": fd["title"],
+                            "status": f"FAILED: {e}", "q_count": 0})
         time.sleep(3)
 
     banner("BATCH COMPLETE")
     for r in results:
         status = "✓" if r["status"] == "OK" else "✗"
-        print(f"  {status}  [{r['index']:02d}] {r['title']}")
+        print(f"  {status}  [{r['index']:02d}] {r['title']}  ({r['q_count']} questions)")
     print()
     ok = sum(1 for r in results if r["status"] == "OK")
     log(f"{ok}/{len(results)} forms created successfully.")
