@@ -10,7 +10,7 @@ const FOUNDERS = [
   { name: "G. M. Mahajan", nameMarathi: "जी. एम. महाजन", city: "Bhusawal", photo: "/founders/gm_mahajan.png", role: "Founder Member" },
   { name: "G. S. Patil", nameMarathi: "जी. एस. पाटील", city: "Navapur / Nasik", photo: "/founders/gs_patil.png", role: "Founder Member" },
   { name: "Nityedra Oke", nameMarathi: "नित्येंद्र ओके", city: "Akola", photo: "/founders/nityedra_oke.png", role: "Founder Member" },
-  { name: "Anant Naseri", nameMarathi: "अनंत नासेरी", city: "Nagpur", photo: "/founders/anant_naseri.png", role: "Founder Member" },
+  { name: "Anand Nasery", nameMarathi: "अनंत नासेरी", city: "Nagpur", photo: "/founders/anant_naseri.png", role: "Founder Member" },
 ];
 
 export default function HomePage() {
