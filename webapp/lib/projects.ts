@@ -50,7 +50,7 @@ export const PROJECTS: Project[] = [
     icon: "📖",
     description: "Central library with digital resources serving the entire campus",
     descriptionMarathi: "संपूर्ण कॅम्पसला सेवा देणारे डिजिटल संसाधनांसह मध्यवर्ती ग्रंथालय",
-    active: false,
+    active: true,
   },
   {
     index: 4,
