@@ -195,7 +195,7 @@ export default function SpecificationsPage() {
                 These Functional Specification Documents have been prepared by{" "}
                 <strong style={{ color: "var(--forest)" }}>Eduval Pvt. Ltd.</strong> based on the planning surveys
                 completed by the Club Deeper Core Committee (July 2026). Each document is the primary design brief
-                for the appointed Civil Engineer (Dr. Shivaji Padwal), Architect (Omkar Yanbhar, Yo+ Architect),
+                for the appointed Civil Engineer, Architect (Omkar Yanbhar),
                 and Project Manager. The Excel cost sheets provide itemised civil and fit-out cost estimates based
                 on Pune/Maharashtra market rates.
               </p>
