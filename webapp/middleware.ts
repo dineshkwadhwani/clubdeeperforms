@@ -13,9 +13,12 @@ export function middleware(req: NextRequest) {
   if (path.startsWith("/specifications")) {
     if (!role) return NextResponse.redirect(new URL("/", req.url));
   }
+  if (path.startsWith("/software-requirements")) {
+    if (!role) return NextResponse.redirect(new URL("/", req.url));
+  }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*", "/specifications/:path*"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/specifications/:path*", "/software-requirements/:path*"],
 };

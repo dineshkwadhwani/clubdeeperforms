@@ -88,7 +88,7 @@ export default function DashboardPage() {
         <div className="flex-1 py-4 overflow-y-auto">
 
           {/* ── Specifications link — top of nav ── */}
-          <div className="mb-3">
+          <div className="mb-1">
             <Link
               href="/specifications"
               style={{
@@ -114,14 +114,42 @@ export default function DashboardPage() {
             >
               <span className="text-xl flex-shrink-0">📋</span>
               {sidebarOpen && (
-                <span style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.875rem",
-                  fontWeight: 600,
-                  color: "#E8A84A",
-                  letterSpacing: "0.01em",
-                }}>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", fontWeight: 600, color: "#E8A84A", letterSpacing: "0.01em" }}>
                   Specifications
+                </span>
+              )}
+            </Link>
+          </div>
+
+          {/* ── Software Requirements link ── */}
+          <div className="mb-3">
+            <Link
+              href="/software-requirements"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                width: "100%",
+                padding: sidebarOpen ? "10px 16px" : "10px",
+                justifyContent: sidebarOpen ? "flex-start" : "center",
+                borderLeft: "3px solid transparent",
+                background: "transparent",
+                textDecoration: "none",
+                transition: "all 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)";
+                (e.currentTarget as HTMLElement).style.borderLeftColor = "rgba(200,137,42,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.borderLeftColor = "transparent";
+              }}
+            >
+              <span className="text-xl flex-shrink-0">💻</span>
+              {sidebarOpen && (
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.875rem", fontWeight: 600, color: "#E8A84A", letterSpacing: "0.01em" }}>
+                  Software Requirements
                 </span>
               )}
             </Link>
