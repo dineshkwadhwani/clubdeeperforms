@@ -10,9 +10,12 @@ export function middleware(req: NextRequest) {
   if (path.startsWith("/admin")) {
     if (role !== "admin") return NextResponse.redirect(new URL("/", req.url));
   }
+  if (path.startsWith("/specifications")) {
+    if (!role) return NextResponse.redirect(new URL("/", req.url));
+  }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/specifications/:path*"],
 };

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { PROJECTS, CATEGORIES, Project } from "@/lib/projects";
 
 export default function DashboardPage() {
@@ -85,6 +86,50 @@ export default function DashboardPage() {
 
         {/* Project list */}
         <div className="flex-1 py-4 overflow-y-auto">
+
+          {/* ── Specifications link — top of nav ── */}
+          <div className="mb-3">
+            <Link
+              href="/specifications"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                width: "100%",
+                padding: sidebarOpen ? "10px 16px" : "10px",
+                justifyContent: sidebarOpen ? "flex-start" : "center",
+                borderLeft: "3px solid transparent",
+                background: "transparent",
+                textDecoration: "none",
+                transition: "all 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)";
+                (e.currentTarget as HTMLElement).style.borderLeftColor = "rgba(200,137,42,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.borderLeftColor = "transparent";
+              }}
+            >
+              <span className="text-xl flex-shrink-0">📋</span>
+              {sidebarOpen && (
+                <span style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  color: "#E8A84A",
+                  letterSpacing: "0.01em",
+                }}>
+                  Specifications
+                </span>
+              )}
+            </Link>
+            {sidebarOpen && (
+              <div style={{ margin: "6px 16px 0", height: "1px", background: "rgba(200,137,42,0.2)" }} />
+            )}
+          </div>
+
           {CATEGORIES.map((cat) => {
             const catProjects = PROJECTS.filter((p) => p.category === cat);
             return (
