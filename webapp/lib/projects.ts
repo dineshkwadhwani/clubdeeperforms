@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     icon: "🎯",
     description: "Dedicated center for civil services aspirants — UPSC, MPSC, Police Bharti",
     descriptionMarathi: "नागरी सेवा इच्छुकांसाठी समर्पित केंद्र — UPSC, MPSC, पोलीस भरती",
-    active: false,
+    active: true,
   },
   {
     index: 5,
@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     icon: "🛠️",
     description: "25–30 hands-on skill units with training, internships and campus service integration",
     descriptionMarathi: "२५–३० व्यावहारिक कौशल्य युनिट्स — प्रशिक्षण, इंटर्नशिप आणि कॅम्पस सेवा एकत्रीकरण",
-    active: false,
+    active: true,
   },
   {
     index: 6,
@@ -89,7 +89,7 @@ export const PROJECTS: Project[] = [
     icon: "💻",
     description: "Technology park for software training, startups and commercial IT workspace",
     descriptionMarathi: "सॉफ्टवेअर प्रशिक्षण, स्टार्टअप्स आणि व्यावसायिक IT कार्यक्षेत्रासाठी तंत्रज्ञान पार्क",
-    active: false,
+    active: true,
   },
   {
     index: 7,
@@ -102,7 +102,7 @@ export const PROJECTS: Project[] = [
     icon: "🏡",
     description: "Dignified residential care for senior citizens, integrated with campus community",
     descriptionMarathi: "वृद्ध नागरिकांसाठी सन्माननीय निवासी सेवा, कॅम्पस समुदायाशी एकत्रित",
-    active: false,
+    active: true,
   },
   {
     index: 8,
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     icon: "🤝",
     description: "Day care for toddlers, special needs children and differently-abled individuals",
     descriptionMarathi: "लहान मुले, विशेष गरजा असलेली मुले आणि अपंग व्यक्तींसाठी डे केअर",
-    active: false,
+    active: true,
   },
   {
     index: 9,
@@ -128,7 +128,7 @@ export const PROJECTS: Project[] = [
     icon: "🏥",
     description: "Multi-specialty hospital serving campus and surrounding rural communities",
     descriptionMarathi: "कॅम्पस आणि आसपासच्या ग्रामीण समुदायांना सेवा देणारे बहु-विशेष रुग्णालय",
-    active: false,
+    active: true,
   },
   {
     index: 10,
@@ -154,7 +154,7 @@ export const PROJECTS: Project[] = [
     icon: "🎓",
     description: "Corporate, leadership and government staff training with conference facilities",
     descriptionMarathi: "कॉर्पोरेट, नेतृत्व आणि सरकारी कर्मचारी प्रशिक्षण — परिषद सुविधांसह",
-    active: false,
+    active: true,
   },
   {
     index: 12,
@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     icon: "🏏",
     description: "Full-size cricket and football grounds with coaching academy potential",
     descriptionMarathi: "कोचिंग अकादमीच्या संभाव्यतेसह पूर्ण आकाराचे क्रिकेट आणि फुटबॉल मैदान",
-    active: false,
+    active: true,
   },
   {
     index: 13,
@@ -180,7 +180,7 @@ export const PROJECTS: Project[] = [
     icon: "🏸",
     description: "Multi-sport indoor hall for badminton, table tennis, boxing and more",
     descriptionMarathi: "बॅडमिंटन, टेबल टेनिस, बॉक्सिंग आणि अधिकसाठी बहु-क्रीडा इनडोअर हॉल",
-    active: false,
+    active: true,
   },
   {
     index: 14,
@@ -193,7 +193,7 @@ export const PROJECTS: Project[] = [
     icon: "🏊",
     description: "Modern gymnasium and swimming pool for students, staff and residents",
     descriptionMarathi: "विद्यार्थी, कर्मचारी आणि रहिवाशांसाठी आधुनिक जिम्नॅशियम आणि जलतरण तलाव",
-    active: false,
+    active: true,
   },
   {
     index: 15,
@@ -206,7 +206,7 @@ export const PROJECTS: Project[] = [
     icon: "🏘️",
     description: "200–250 gated bungalow plots for like-minded families in nature",
     descriptionMarathi: "निसर्गात समान विचारसरणीच्या कुटुंबांसाठी २००–२५० गेटेड बंगला भूखंड",
-    active: false,
+    active: true,
   },
   {
     index: 16,
@@ -219,7 +219,7 @@ export const PROJECTS: Project[] = [
     icon: "🎪",
     description: "Premium social club with dining, recreation and event facilities",
     descriptionMarathi: "जेवण, मनोरंजन आणि कार्यक्रम सुविधांसह प्रीमियम सामाजिक क्लब",
-    active: false,
+    active: true,
   },
   {
     index: 17,
@@ -245,7 +245,7 @@ export const PROJECTS: Project[] = [
     icon: "🐄",
     description: "Dairy, poultry and aquaculture for campus food supply and skill training",
     descriptionMarathi: "कॅम्पस अन्न पुरवठा आणि कौशल्य प्रशिक्षणासाठी दुग्धव्यवसाय, कुक्कुटपालन आणि जलसंवर्धन",
-    active: false,
+    active: true,
   },
   {
     index: 19,
@@ -258,7 +258,7 @@ export const PROJECTS: Project[] = [
     icon: "🍽️",
     description: "Cashless Deepa Coin-based dining for 3,000+ residents and students",
     descriptionMarathi: "३,०००+ रहिवासी आणि विद्यार्थ्यांसाठी कॅशलेस दीपा कॉईन-आधारित जेवण",
-    active: false,
+    active: true,
   },
   {
     index: 20,
@@ -271,7 +271,7 @@ export const PROJECTS: Project[] = [
     icon: "🛣️",
     description: "Roads, utilities, solar power, water, sewage and campus-wide digital network",
     descriptionMarathi: "रस्ते, उपयुक्तता, सौर ऊर्जा, पाणी, सांडपाणी आणि कॅम्पसव्यापी डिजिटल नेटवर्क",
-    active: false,
+    active: true,
   },
 ];
 
